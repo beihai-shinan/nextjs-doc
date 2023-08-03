@@ -1,3 +1,5 @@
+import { getCookie } from 'cookies-next'
+
 export const callApi = async (url, options) => {
   const { headers: oHeaders, method, log, ...rest } = options || {}
   const isGetMeghtod = method ? method.toUpperCase() === 'GET' : true
@@ -34,11 +36,29 @@ export const callApi = async (url, options) => {
         })
       }
       return res.json().then((data) => {
-        return data.object
+        if (data?.result) {
+          return data.object
+        }
+        {
+          console.error(`callApi error url: ${url}`, data)
+          return {}
+        }
       })
     })
     .catch((e) => {
       console.log(`callApi error url: ${url}`, e)
       return e
     })
+}
+
+export const getRequestHeadersInClient = () => {
+  const requestHeader = {
+    Platform: 'h5',
+    'b-cookie': getCookie('b_cookie') || '',
+    Authorization: `Bearer ${getCookie('auth_token')}`,
+    'weee-session-token': getCookie('weee_session_token') || '',
+    'Content-Type': 'application/json',
+  }
+
+  return requestHeader
 }

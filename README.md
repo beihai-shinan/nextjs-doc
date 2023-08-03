@@ -74,11 +74,8 @@ src 和 app 目录共存
 - 文件互斥 src 模式需要将 /components /lib 都放在 src 里面
 - 配置不能共用 next-translate 和 next-intl 配置
 
-enki 配置迁移
-没有\_app 文件, 使用 ReactDOM.reload api 可以实现 `preload`, 但是没有方案去实现 `<link src={xxx.{lang}.css}>`
-
 迁移中间件
-cookies api 更新 进行总
+cookies api 更新 进行
 
 layout 独立 header 上标签策略和旧版不一样, 会直接影响分享 fb 等功能
 [参考链接](https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadata-fields)
@@ -137,3 +134,57 @@ const ProductDetailSEO: React.FC<Props> = ({ product, post, path }) => {
 
 获取的数据在服务端, 切换页面再返回时, 页面之前的操作状态不会重置, 保持了之前的状态, 但要注意是否对服务器造成压力, 需要后续验证
 `nextjs` 封装了原生的 `fetch api` 并且支持更灵活的接口缓存和更新
+
+### 代码段
+
+- build 阶段问题
+
+```js
+Import trace for requested module:
+./node_modules/jsonwebtoken/lib/asymmetricKeyDetailsSupported.js
+./node_modules/jsonwebtoken/lib/validateAsymmetricKey.js
+./node_modules/jsonwebtoken/verify.js
+./node_modules/jsonwebtoken/index.js
+./middwares-extra/session-token.ts
+
+./node_modules/jsonwebtoken/lib/psSupported.js
+A Node.js API is used (process.version at line: 3) which is not supported in the Edge Runtime.
+Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+
+Import trace for requested module:
+./node_modules/jsonwebtoken/lib/psSupported.js
+./node_modules/jsonwebtoken/verify.js
+./node_modules/jsonwebtoken/index.js
+./middwares-extra/session-token.ts
+
+./node_modules/jsonwebtoken/lib/rsaPssKeyDetailsSupported.js
+A Node.js API is used (process.version at line: 3) which is not supported in the Edge Runtime.
+Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+
+Import trace for requested module:
+./node_modules/jsonwebtoken/lib/rsaPssKeyDetailsSupported.js
+./node_modules/jsonwebtoken/lib/validateAsymmetricKey.js
+./node_modules/jsonwebtoken/verify.js
+./node_modules/jsonwebtoken/index.js
+./middwares-extra/session-token.ts
+
+./node_modules/jws/lib/data-stream.js
+A Node.js API is used (process.nextTick at line: 25) which is not supported in the Edge Runtime.
+Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+
+Import trace for requested module:
+./node_modules/jws/lib/data-stream.js
+./node_modules/jws/lib/sign-stream.js
+./node_modules/jws/index.js
+./node_modules/jsonwebtoken/decode.js
+./node_modules/jsonwebtoken/index.js
+./middwares-extra/session-token.ts
+
+./node_modules/minimatch/dist/mjs/index.js
+A Node.js API is used (process.platform at line: 71) which is not supported in the Edge Runtime.
+Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+
+```
+
+- 产品卡片加购
+- 倒计时

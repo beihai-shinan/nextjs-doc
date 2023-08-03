@@ -46,5 +46,7 @@ export const config = {
   unstable_allowDynamic: [
     // '/lib/utilities.js', // allows a single file
     '/node_modules/lodash/**', // use a glob to allow anything in the function-bind 3rd party module
+    '/node_modules/jws/**', // use a glob to allow anything in the function-bind 3rd party module
+    '/node_modules/jsonwebtoken/**', // use a glob to allow anything in the function-bind 3rd party module
   ],
 }

@@ -30,9 +30,9 @@ export default function BaseLayout(props: IRootLayoutProps) {
       <PreloadResources lang={lang} />
       <html lang={lang}>
         <head>
-          <link rel="stylesheet" href={`https://static.weeecdn.com/static/font-face-css/${lang}-845175b2.css`} />
+          {/* <link rel="stylesheet" href={`https://static.weeecdn.com/static/font-face-css/${lang}-845175b2.css`} /> */}
+          <link rel="stylesheet" href={`/enki/fonts/${lang}-2770a387.css`} />
           <link rel="stylesheet" href={`https://static.weeecdn.com/static/font-enki-css/${lang}-c65aeff5.css`} />
-          <link rel="stylesheet" href={`https://cdnjs.cloudflare.com/ajax/libs/Swiper/10.0.4/swiper-bundle.min.css`} />
           {extraHeader}
           <LazyloadScript />
         </head>

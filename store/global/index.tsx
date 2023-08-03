@@ -13,6 +13,9 @@ export const GlobalProvider = ({ children, data }) => {
 
 export interface IGlobalState extends InitialState {
   setCartData: (data: any) => void
+  setAddCartData: (data: any) => void
+  addGoodsInCart: (goods: any) => void
+  subGoodsInCart: (goods: any) => void
 }
 
 export default function useGlobal(): IGlobalState {
@@ -21,6 +24,15 @@ export default function useGlobal(): IGlobalState {
     ...store.store,
     setCartData: (data) => {
       dispatch({ type: ACTIONS.SET_CART_DATA, payload: data })
+    },
+    setAddCartData: (data) => {
+      dispatch({ type: ACTIONS.SET_ADD_CART_DATA, payload: data })
+    },
+    addGoodsInCart: (goods) => {
+      dispatch({ type: ACTIONS.ADD_GOODS_IN_CART, payload: goods })
+    },
+    subGoodsInCart: (goods) => {
+      dispatch({ type: ACTIONS.SUB_GOODS_IN_CART, payload: goods })
     },
   }
 }

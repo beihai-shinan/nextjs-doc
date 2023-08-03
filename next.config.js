@@ -8,7 +8,7 @@ const nextConfig = {
   images: {
     domains: ['pbs.twimg.com'],
   },
-  output: 'standalone',
+  // output: 'standalone',
   experimental: {
     esmExternals: true,
     serverActions: true,

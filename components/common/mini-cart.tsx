@@ -13,7 +13,7 @@ type IProps = {
 const MiniCart: FC<IProps> = ({ onClick, iconStyle = {}, className = '' }) => {
   const router = useRouter()
   const { cart } = useGlobal()
-  const count = cart?.quantity || 0
+  const count = cart?.count || 0
   return (
     <div
       className={twMerge(

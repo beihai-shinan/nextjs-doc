@@ -18,7 +18,7 @@ export default function Picture(props: IProps) {
         className,
       )}
       initialSlide={0}
-      loopedSlides={imageUrls.length ?? 1}
+      loopedSlides={imageUrls?.length ?? 1}
       // onSwiper={current => (imageRef.current = current)}
       // onSlidePrevTransitionEnd={onSwiperChange}
       // onSlideNextTransitionEnd={onSwiperChange}

@@ -89,36 +89,37 @@ const ProductSection: FC<{
                 return (
                   <SwiperSlide key={`filter-item-${index}`}>
                     <div onClick={() => clickTrack(item?.id)}>
-                      <ViewportLoad initialLoad={index < 2}>
-                        <ProductCard
-                          showLoadingWhenJump={showLoadingWhenJump}
-                          data={item}
-                          customAddCartApi={customAddCartApi}
-                          showSoldBy={isGroupOrder ? false : true}
-                          addCartParams={{
-                            ...addCartParams,
-                            source: isGroupOrder ? 'app_product-recommend' : addCartParams?.source,
-                            customReferType: isGroupOrder ? 'seller_group_order' : addCartParams?.referType,
-                          }}
-                          positionInfoT2={{
-                            modSecPos: {
-                              mod_nm: moduleName,
-                              mod_pos:
-                                {
-                                  related: 5,
-                                  buytogether: 6,
-                                  exploremore: 8,
-                                }[moduleName] || 7,
-                            },
-                            prodPos: index,
-                            context: {
-                              page_target: productId,
-                              global_vendor,
-                            },
-                          }}
-                          {...productCardParam}
-                        />
-                      </ViewportLoad>
+                      {/* <ViewportLoad initialLoad={index < 2}> */}
+                      <ProductCard
+                        showLoadingWhenJump={showLoadingWhenJump}
+                        data={item}
+                        customAddCartApi={customAddCartApi}
+                        showSoldBy={isGroupOrder ? false : true}
+                        addCartParams={{
+                          ...addCartParams,
+                          deliveryDate: getCookie('DELIVERY_DATE'),
+                          source: isGroupOrder ? 'app_product-recommend' : addCartParams?.source,
+                          customReferType: isGroupOrder ? 'seller_group_order' : addCartParams?.referType,
+                        }}
+                        positionInfoT2={{
+                          modSecPos: {
+                            mod_nm: moduleName,
+                            mod_pos:
+                              {
+                                related: 5,
+                                buytogether: 6,
+                                exploremore: 8,
+                              }[moduleName] || 7,
+                          },
+                          prodPos: index,
+                          context: {
+                            page_target: productId,
+                            global_vendor,
+                          },
+                        }}
+                        {...productCardParam}
+                      />
+                      {/* </ViewportLoad> */}
                     </div>
                   </SwiperSlide>
                 )

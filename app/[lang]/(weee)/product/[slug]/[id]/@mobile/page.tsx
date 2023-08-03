@@ -15,6 +15,10 @@ import BodyVendorInfo from '~/components/biz/pdp/body-vendor-info'
 import ActivityList from '~/components/biz/pdp/activity-list'
 import ProductSectionsServer from '~/components/biz/pdp/product-sections-server'
 import ReviewListServer from '~/components/biz/pdp/review-list-server'
+import FloatAddToCart from '~/components/common/add-to-cart/float'
+import TopCommonPromoBar from '~/components/biz/pdp/top-message'
+import 'node_modules/swiper/swiper.min.css'
+import 'node_modules/@egjs/react-flicking/dist/flicking.css'
 
 interface IProductPageProps {
   params: {
@@ -85,8 +89,12 @@ export default async function MobileProductPage({ params, searchParams }: IProdu
     </div>
   )
 
+  const renderTopNode = () => {
+    return <TopCommonPromoBar searchParams={searchParams as any} cookieKey="pdp_landing_stamp_expires" />
+  }
+
   return (
-    <Layout header={header} prefetchApiList={[PrefertchApiList.CART]}>
+    <Layout topNode={renderTopNode()} header={header} prefetchApiList={[PrefertchApiList.CART]}>
       <Picture product={productDetail?.product} />
       <BodyTag product={productDetail?.product} />
       <VipFreeTrialBanner
@@ -106,6 +114,19 @@ export default async function MobileProductPage({ params, searchParams }: IProdu
           <div dangerouslySetInnerHTML={{ __html: productDetail?.product?.description_html }}></div>
         </div>
       )}
+
+      <FloatAddToCart
+        addCartParams={{
+          data: {},
+          renderCartCountText: true,
+          text: 'Add to Cart',
+          source: 'SOURCE',
+          referType: 'normal',
+          referValue: '',
+          deliveryDate: getCookie('DELIVERY_DATE'),
+          minLimitArrowToTarget: 20,
+        }}
+      />
       <div>mobile</div>
       <ClientChild />
     </Layout>
