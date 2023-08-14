@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getCookie, setCookie } from '~/utils/cookies'
 import { getAppDeviceId, getValueFromReqHeaders, getWeeeSessionTokenFromHeaders, isSayweeeApp } from '~/utils/req-headers'
-import jwt from 'jsonwebtoken'
+import * as jose from 'jose'
 import { callApi } from '~/utils/axios'
 
 async function generateSessionToken(request: NextRequest): Promise<string> {
@@ -11,7 +11,7 @@ async function generateSessionToken(request: NextRequest): Promise<string> {
     getValueFromReqHeaders(request, 'weee_token')
   if (authToken) {
     try {
-      let info = jwt.decode(authToken) || {}
+      let info = jose.decodeJwt(authToken) || {}
       let expireTime = info.exp || 0
       const time = new Date().getTime() / 1000
       const isExpired = expireTime < time

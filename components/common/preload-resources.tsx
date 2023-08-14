@@ -19,15 +19,14 @@ export default function PreloadResources(props: { lang: string }) {
   // <link rel="stylesheet" href={`https://img01.weeecdn.net/static/font-enki-css/${lang}-c65aeff5.css`} />
 
   useEffect(() => {
-    const loadFastClick = async () => {
-      const fastClick = await import('fastclick')
-      fastClick.default.attach(document.body)
-      fastClick.default.prototype.focus = function (targetElement) {
-        targetElement.focus()
-      }
-    }
-
-    loadFastClick()
+    // const loadFastClick = async () => {
+    //   const fastClick = await import('fastclick')
+    //   fastClick.default.attach(document.body)
+    //   fastClick.default.prototype.focus = function (targetElement) {
+    //     targetElement.focus()
+    //   }
+    // }
+    // loadFastClick()
   }, [])
 
   return <></>

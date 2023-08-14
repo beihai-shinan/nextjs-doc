@@ -22,7 +22,7 @@ export default function Picture(props: IProps) {
       // onSwiper={current => (imageRef.current = current)}
       // onSlidePrevTransitionEnd={onSwiperChange}
       // onSlideNextTransitionEnd={onSwiperChange}
-      pagination={imageUrls.length > 1}
+      pagination={imageUrls?.length > 1}
       slidesPerView="auto"
     >
       {imageUrls?.map((item, index) => {

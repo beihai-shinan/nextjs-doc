@@ -100,6 +100,18 @@ export default async function zipcodeMiddware(request, response: NextResponse) {
   let porderInfo: any = {}
   let defaultZipcodeInfo: any = {}
 
+  const cToken = getCookie('auth_token', request)
+  const cZipcode = getCookie('NEW_ZIP_CODE', request)
+  const cSalesOrgId = getCookie('NEW_SALES_ORG_ID', request)
+  const cIsShippingOrder = getCookie('is_shipping_order_mobile', request)
+  const cIsMof = getCookie('is_mof', request)
+  const cDate = getCookie('DELIVERY_DATE', request)
+  const cCity = getCookie('NEW_ZIP_CITY', request)
+
+  if (cToken && cZipcode && cSalesOrgId && cIsShippingOrder && cIsMof && cDate && cCity) {
+    return
+  }
+
   if (Object.keys(globalState).length > 0) {
     porderInfo = globalState
   } else {

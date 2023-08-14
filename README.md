@@ -186,5 +186,34 @@ Learn more: https://nextjs.org/docs/api-reference/edge-runtime
 
 ```
 
+1. 通过添加 `server` 中间件上的 `config` 处理 无法彻底解决
+2. 使用 `jose` 代替 `jsonwebtoken`
+
 - 产品卡片加购
 - 倒计时
+
+### doc
+
+- nextjs compile
+
+https://nextjs.org/docs/architecture/nextjs-compiler
+
+- Module Transpilation
+
+Next.js can automatically transpile and bundle dependencies from local packages (like monorepos) or from external dependencies (node_modules). This replaces the next-transpile-modules package.
+
+- Modularize Imports
+
+```js
+// next.config.js
+module.exports = {
+  modularizeImports: {
+    'react-bootstrap': {
+      transform: 'react-bootstrap/{{member}}',
+    },
+    lodash: {
+      transform: 'lodash/{{member}}',
+    },
+  },
+}
+```

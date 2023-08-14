@@ -18,7 +18,7 @@ import ReviewListServer from '~/components/biz/pdp/review-list-server'
 import FloatAddToCart from '~/components/common/add-to-cart/float'
 import TopCommonPromoBar from '~/components/biz/pdp/top-message'
 import 'node_modules/swiper/swiper.min.css'
-import 'node_modules/@egjs/react-flicking/dist/flicking.css'
+import { Metadata, ResolvingMetadata } from 'next'
 
 interface IProductPageProps {
   params: {
@@ -27,6 +27,36 @@ interface IProductPageProps {
     id: string
   }
   searchParams: Record<string, any>
+}
+
+export async function generateMetadata({ params, searchParams }: IProductPageProps, parent?: ResolvingMetadata): Promise<Metadata> {
+  const requestHeader = {
+    'User-Agent': headers().get('user-agent'),
+    Platform: headers().get('platform') || 'h5',
+    'b-cookie': getCookie('b_cookie') || '',
+    Authorization: `Bearer ${getCookie('auth_token')}`,
+    lang: params.lang,
+    'weee-session-token': getCookie('weee_session_token') || '',
+    'Content-Type': 'application/json',
+  }
+  // fetch data
+  const { seo_info = {} } = await callApi('/ec/growth/seo/meta', {
+    headers: requestHeader,
+    method: 'GET',
+    body: {
+      segment1: 'product',
+      segment2: 'view',
+      product_id: params.id,
+    },
+  })
+  return {
+    title: seo_info.title,
+    description: seo_info.description,
+    keywords: seo_info.keywords,
+    openGraph: {
+      // images: ['/some-specific-page-image.jpg', ...previousImages],
+    },
+  }
 }
 
 export default async function MobileProductPage({ params, searchParams }: IProductPageProps) {
@@ -41,22 +71,13 @@ export default async function MobileProductPage({ params, searchParams }: IProdu
     'Content-Type': 'application/json',
   }
   const salesOrgId = 1
-  const [productDetail, seoInfo, postInfo] = await Promise.all([
+  const [productDetail, postInfo] = await Promise.all([
     callApi('/ec/item/items/detail', {
       headers: requestHeader,
       method: 'GET',
       body: {
         product_id: params.id,
         sales_org_id: salesOrgId,
-      },
-    }),
-    callApi('/ec/growth/seo/meta', {
-      headers: requestHeader,
-      method: 'GET',
-      body: {
-        segment1: 'product',
-        segment2: 'view',
-        product_id: params.id,
       },
     }),
     callApi('/ec/sns/review', {
@@ -117,10 +138,12 @@ export default async function MobileProductPage({ params, searchParams }: IProdu
 
       <FloatAddToCart
         addCartParams={{
-          data: {},
+          data: {
+            product_id: params.id,
+          },
           renderCartCountText: true,
           text: 'Add to Cart',
-          source: 'SOURCE',
+          source: 'product-cart',
           referType: 'normal',
           referValue: '',
           deliveryDate: getCookie('DELIVERY_DATE'),

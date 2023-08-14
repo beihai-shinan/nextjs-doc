@@ -1,6 +1,7 @@
 import PreloadResources from '~/components/common/preload-resources'
 import LazyloadScript from '../common/lazyload-scripts'
 import { cookies } from 'next/headers'
+import ReportWebVitals from '~/components/layout/report-web-vitals'
 import '~/assets/styles/global.css'
 import '~/assets/iconfont/iconfont.css'
 
@@ -27,6 +28,7 @@ export default function BaseLayout(props: IRootLayoutProps) {
   })
   return (
     <>
+      <ReportWebVitals />
       <PreloadResources lang={lang} />
       <html lang={lang}>
         <head>

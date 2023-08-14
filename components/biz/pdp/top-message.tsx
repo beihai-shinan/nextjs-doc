@@ -91,9 +91,9 @@ export default function TopCommonPromoBar(props: Props) {
       ],
       countdown: {
         number_bg_color: '#CA3908',
-        end_time: 1691014524,
+        end_time: 1691471508,
         show_time: -1,
-        server_timestamp: 1690972494,
+        server_timestamp: 1691471508,
         title: '',
         type: 1,
         number_color: '#FFFFFF',
@@ -228,7 +228,7 @@ export default function TopCommonPromoBar(props: Props) {
     >
       {!!copyInfo?.icon_url && (
         <div className="shrink-0 mr-2">
-          <img width={30} src={copyInfo?.icon_url} />
+          <img width={30} src={copyInfo?.icon_url} alt="time icon" />
         </div>
       )}
       {!!copyInfo?.title && (
@@ -242,7 +242,7 @@ export default function TopCommonPromoBar(props: Props) {
       )}
       {!!copyInfo?.close_cta?.icon_url && (
         <div className="shrink-0 mr-[-8px] py-3 px-2" onClick={onClickClose}>
-          <img width={20} src={copyInfo?.close_cta?.icon_url} />
+          <img width={20} src={copyInfo?.close_cta?.icon_url} alt="add icon" />
         </div>
       )}
     </div>
@@ -261,7 +261,7 @@ function CountDownTimer(props: ICountDownTimerProps) {
       onEnd()
     },
   })
-  syncTime?.(timeStamp)
+  // syncTime?.(timeStamp)
 
   useEffect(() => {
     if (type == 3) {

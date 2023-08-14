@@ -18,7 +18,7 @@ export const callApi = async (url, options) => {
       ...oHeaders,
       'Content-Type': 'application/json',
     },
-    next: { revalidate: 100 },
+    next: { revalidate: 1000 },
     ...rest,
   }
   if (isGetMeghtod) {

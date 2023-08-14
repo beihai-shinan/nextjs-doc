@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken'
+import * as jose from 'jose'
 import { NextRequest, NextResponse } from 'next/server'
 import { getCookie, setCookie } from '~/utils/cookies'
 import { getValueFromReqHeaders, isWeixinBrowser } from '~/utils/req-headers'
@@ -85,7 +85,11 @@ export default async function authTokenMiddware(request: NextRequest, response: 
     return
   }
 
-  let parseToken = jwt.decode(authToken) || {}
+  let parseToken: any
+
+  if (authToken) {
+    parseToken = jose.decodeJwt(authToken) || {}
+  }
 
   if (parseToken && !parseToken.is_login && isWeixinBrowser(request)) {
     //是否需要微信自动登录
@@ -111,7 +115,7 @@ export default async function authTokenMiddware(request: NextRequest, response: 
       let generateResult = await generateToken(request)
 
       authToken = generateResult
-      parseToken = jwt.decode(authToken) || {}
+      parseToken = jose.decodeJwt(authToken) || {}
     } catch (error) {
       console.log(error)
     }
@@ -128,7 +132,7 @@ export default async function authTokenMiddware(request: NextRequest, response: 
       let generateResult = await generateToken(request)
 
       authToken = generateResult
-      parseToken = jwt.decode(authToken) || {}
+      parseToken = jose.decodeJwt(authToken) || {}
     } catch (error) {
       console.log(error)
     }
@@ -138,7 +142,7 @@ export default async function authTokenMiddware(request: NextRequest, response: 
     try {
       let refreshResult = await refreshToken(authToken as string, request)
       authToken = refreshResult
-      parseToken = jwt.decode(authToken) || {}
+      parseToken = jose.decodeJwt(authToken) || {}
     } catch (e) {
       console.log(e)
     }

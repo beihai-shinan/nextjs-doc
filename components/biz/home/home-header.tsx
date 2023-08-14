@@ -5,7 +5,7 @@ import MiniCart from '~/components/common/mini-cart'
 // import useHomepage from '@/store/home';
 // import useCart from '@/store/shopping';
 // import { getZipcode, getAddressCity } from '@/utils/common/porder';
-import LOGO from '@/assets/images/weee-logo-black.svg'
+import LOGO from '~/assets/images/weee-logo-black.svg'
 import { useRef } from 'react'
 import { getCookie } from '~/utils/cookie-client'
 import HomeDrawer from '~/components/common/home-drawer'
@@ -67,7 +67,7 @@ function HomeHeader(props: HeaderProps) {
           </div>
         </div>
         <div className="flex items-center flex-col justify-center">
-          <img className="w-[70px] h-5" src={LOGO} />
+          <img className="w-[70px] h-5" src={LOGO} alt="weee_logo" />
           <div className="mt-1 flex-1 flex items-center justify-center">
             {showStore ? (
               <span className="enki-utility-xs text-surface-1-fg-default-idle" onClick={openDrawer(DrawerType.store, true)}>
